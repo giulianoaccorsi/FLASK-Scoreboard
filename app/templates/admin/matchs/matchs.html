@@ -1,0 +1,66 @@
+{% import "bootstrap/utils.html" as utils %}
+{% extends "base.html" %}
+{% block title %}Partidas{% endblock %}
+{% block body %}
+<div class="content-section">
+  <div class="outer">
+    <div class="middle">
+      <div class="inner">
+        <br/>
+        {{ utils.flashed_messages() }}
+        <br/>
+        <h1 style="text-align:center;">Partidas</h1>
+        {% if matchs %}
+          <hr class="intro-divider">
+          <div class="center">
+            <table id="tabela" class="display table table-striped table-bordered"">
+              <thead class="thead-dark">
+                <tr>
+                  <th> ID </th>
+                  <th> Time da casa </th>
+                  <th> Time visitante </th>
+                  <th> Placar da casa </th>
+                  <th> Placar do visitante </th>
+                  <th> Editar </th>
+                  <th> Deletar </th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for match in matchs %}
+                <tr>
+                  <td> {{ match.id }} </td>
+                  <td> {{ match.home_team }} </td>
+                  <td> {{ match.guest_team }} </td>
+                  <td> {{ match.home_points }} </td>
+                  <td> {{ match.guest_points }} </td>
+                  <td>
+                    <a href="{{ url_for('admin.edit_match', id=match.id) }}">
+                      <i class="fa fa-pencil"></i> Editar
+                    </a>
+                  </td>
+                  <td>
+                    <a href="{{ url_for('admin.delete_match', id=match.id) }}">
+                      <i class="fa fa-trash"></i> Deletar
+                    </a>
+                  </td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div style="text-align: center">
+        {% else %}
+          <div style="text-align: center">
+            <h3> Nenhuma partida cadastrada. </h3>
+            <hr class="intro-divider">
+        {% endif %}
+          <a href="{{ url_for('admin.create_match') }}" class="btn btn-default btn-lg">
+            <i class="fa fa-plus"></i>
+            Cadastrar partida
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

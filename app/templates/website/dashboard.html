@@ -1,0 +1,62 @@
+{% import "bootstrap/utils.html" as utils %}
+{% extends "base.html" %}
+{% block title %}Times{% endblock %}
+{% block body %}
+<div class="content-section">
+  <div class="outer">
+    <div class="middle">
+      <div class="inner">
+        <br/>
+        {{ utils.flashed_messages() }}
+        <br/>
+        <h1 style="text-align:center;">Times</h1>
+        {% if teams %}
+          <hr class="intro-divider">
+          <div class="center">
+            <table id="tabela" class="display table table-striped table-bordered"">
+              <thead class="thead-dark">
+                <tr>
+                  <th> ID </th>
+                  <th> Nome </th>
+                  <th> Acrônimo </th>
+                  <th> Local </th>
+                  <th> Vitórias </th>
+                  <th> Derrotas </th>
+                  <th> Empate </th>
+                  <th> Pontuação </th>
+                  <th> + Info </th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for team in teams %}
+                <tr>
+                  <td> {{ team.id }} </td>
+                  <td> {{ team.name }} </td>
+                  <td> {{ team.acronym }} </td>
+                  <td> {{ team.local }} </td>
+                  <td> {{ team.victories }} </td>
+                  <td> {{ team.losses }} </td>
+                  <td> {{ team.draws }} </td>
+                  <td> {{ team.points }} </td>
+                  <td>
+                    <a href="{{ url_for('website.details', id=team.id) }}">
+                      <i class="fa fa-plus"></i> Info
+                    </a>
+                  </td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div style="text-align: center">
+        {% else %}
+          <div style="text-align: center">
+            <h3> Nenhum time cadastrado. </h3>
+            <hr class="intro-divider">
+        {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
